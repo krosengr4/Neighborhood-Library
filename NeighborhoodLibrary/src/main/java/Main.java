@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+		Logic.setDataSource();
 		Logic.processHomeScreen();
 
 		//goodbye message for when user exits

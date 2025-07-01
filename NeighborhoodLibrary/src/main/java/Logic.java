@@ -1,4 +1,15 @@
+import org.apache.commons.dbcp2.BasicDataSource;
+
 public class Logic {
+
+	static BasicDataSource dataSource = new BasicDataSource();
+	static MySqlBookDao bookDao = new MySqlBookDao(dataSource);
+
+	public static void setDataSource() {
+		dataSource.setUrl("jdbc:mysql://localhost:3306/neighborhood_library");
+		dataSource.setUsername("root");
+		dataSource.setPassword(System.getenv("SQL_PASSWORD"));
+	}
 
 	public static void processHomeScreen() {
 		boolean ifContinue = true;
