@@ -5,17 +5,15 @@ public class Book implements MySqlDao {
 	String isbn;
 	String title;
 	boolean isCheckedOut;
-	String checkedOutTo;
 	String author;
 	int publishedYear;
 
 	//Constructor for Book
-	public Book(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo, String author, int publishedYear) {
+	public Book(int id, String isbn, String title, boolean isCheckedOut, String author, int publishedYear) {
 		this.id = id;
 		this.isbn = isbn;
 		this.title = title;
 		this.isCheckedOut = isCheckedOut;
-		this.checkedOutTo = checkedOutTo;
 		this.author = author;
 		this.publishedYear = publishedYear;
 	}
@@ -53,14 +51,6 @@ public class Book implements MySqlDao {
 		this.isCheckedOut = checkedOut;
 	}
 
-	public String getCheckedOutTo() {
-		return checkedOutTo;
-	}
-
-	public void setCheckedOutTo(String checkedOutTo) {
-		this.checkedOutTo = checkedOutTo;
-	}
-
 	public String getAuthor() {
 		return author;
 	}
@@ -81,7 +71,6 @@ public class Book implements MySqlDao {
 	public void checkOut(String name) {
 		if(!this.isCheckedOut()) {
 			setCheckedOut(true);
-			setCheckedOutTo(name);
 		} else {
 			System.err.println("This book is already checked out!");
 		}
@@ -90,7 +79,6 @@ public class Book implements MySqlDao {
 	public void checkIn() {
 		if(isCheckedOut()) {
 			setCheckedOut(false);
-			setCheckedOutTo("");
 		} else {
 			System.err.println("This book hasn't been checked out!");
 		}
