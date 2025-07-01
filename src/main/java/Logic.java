@@ -58,10 +58,22 @@ public class Logic {
 				System.out.println("----------------------------------------");
 			}
 		}
+		Utils.pauseApp();
 	}
 
 	private static void processSearchBookAuthor() {
-		System.out.println("Book by author");
+		String authorToSearch = Utils.getUserInput("Enter the name of the author: ");
+		List<Book> bookList = bookDao.searchByAuthor(authorToSearch);
+
+		if(bookList.isEmpty()) {
+			System.out.println("We do not have any books by that author right now...");
+		} else {
+			for(Book book : bookList) {
+				book.print();
+				System.out.println("----------------------------------------");
+			}
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processSearchBookTitle() {
