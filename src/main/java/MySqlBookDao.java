@@ -56,6 +56,27 @@ public class MySqlBookDao {
 		return bookList;
 	}
 
+	public List<Book> searchByAuthor(String authorName) {
+		List<Book> bookList = new ArrayList<>();
+
+		String query = "SELECT * FROM books " +
+							   "WHERE author LIKE ?;";
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + authorName + "%");
+
+			ResultSet results = statement.executeQuery();
+			while(results.next()) {
+				Book book = mapRow(results);
+				bookList.add(book);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bookList;
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
