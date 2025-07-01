@@ -1,13 +1,12 @@
 public class UserInterface {
 
-	public static String displayMain() {
-		Utils.designLine(70, false);
-		System.out.println("\t\tWELCOME TO THE NEIGHBORHOOD LIBRARY");
-		Utils.designLine(70, true);
-		return Utils.getUserInput("Enter Your Name: ");
-	}
-
 	public static int displayHomeScreen() {
+		String userName = Utils.getUserInput("Please Enter Your Name: ").trim();
+
+		Utils.designLine(70, false);
+		System.out.println("\t\tWELCOME " + userName + " TO THE NEIGHBORHOOD LIBRARY");
+		Utils.designLine(70, true);
+
 		System.out.println("""
 					-----OPTIONS-----
 				1 - Show Available Books
@@ -16,7 +15,7 @@ public class UserInterface {
 				4 - Return A Book
 				0 - Exit
 				""");
-		return Utils.getUserInputInt("Enter your option: ");
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 4);
 	}
 
 }
