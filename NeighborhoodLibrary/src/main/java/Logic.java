@@ -13,9 +13,7 @@ public class Logic {
 				case 4 -> processReturnBook();
 				case 0 -> ifContinue = false;
 			}
-
 		}
-
 	}
 
 	private static void processShowAvailableBooks() {
