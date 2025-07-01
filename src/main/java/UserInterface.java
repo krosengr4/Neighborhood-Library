@@ -11,11 +11,13 @@ public class UserInterface {
 					-----OPTIONS-----
 				1 - Show Available Books
 				2 - Show Checked Out Books
-				3 - Check Out A Book
-				4 - Return A Book
+				3 - Search Books By Author
+				4 - Search Books By Title
+				5 - Check Out A Book
+				6 - Return A Book
 				0 - Exit
 				""");
-		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 4);
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 6);
 	}
 
 }

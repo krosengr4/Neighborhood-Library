@@ -49,6 +49,14 @@ public class Logic {
 		System.out.println("Checked out books");
 	}
 
+	private static void processSearchBookAuthor() {
+		System.out.println("Book by author");
+	}
+
+	private static void processSearchBookTitle() {
+		System.out.println("Book by title");
+	}
+
 	private static void processCheckOutBook() {
 		System.out.println("Check out a book");
 	}
