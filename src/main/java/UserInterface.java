@@ -1,10 +1,10 @@
 public class UserInterface {
 
-	public static int displayHomeScreen() {
-		String userName = Utils.getUserInput("Please Enter Your Name: ").trim();
+	public static int displayHomeScreen(String userName) {
+
 
 		Utils.designLine(70, false);
-		System.out.println("\t\tWELCOME " + userName + " TO THE NEIGHBORHOOD LIBRARY");
+		System.out.println("\t\tWELCOME " + userName.toUpperCase() + " TO THE NEIGHBORHOOD LIBRARY");
 		Utils.designLine(70, true);
 
 		System.out.println("""

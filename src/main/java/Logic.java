@@ -1,5 +1,7 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import java.util.List;
+
 public class Logic {
 
 	static BasicDataSource dataSource = new BasicDataSource();
@@ -12,10 +14,12 @@ public class Logic {
 	}
 
 	public static void processHomeScreen() {
+		String userName = Utils.getUserInput("Please Enter Your Name: ").trim();
+
 		boolean ifContinue = true;
 
 		while(ifContinue) {
-			int userAction = UserInterface.displayHomeScreen();
+			int userAction = UserInterface.displayHomeScreen(userName);
 
 			switch(userAction) {
 				case 1 -> processShowAvailableBooks();
@@ -28,7 +32,17 @@ public class Logic {
 	}
 
 	private static void processShowAvailableBooks() {
-		System.out.println("available books");
+		List<Book> bookList = bookDao.getAllAvailable();
+
+		if(bookList.isEmpty()) {
+			System.out.println("There are no available books at this time...");
+		} else {
+			for(Book book : bookList) {
+				book.print();
+				System.out.println("----------------------------------------");
+			}
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processShowCheckedOutBooks() {
