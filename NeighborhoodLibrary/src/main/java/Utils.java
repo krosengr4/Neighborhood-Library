@@ -131,8 +131,6 @@ public class Utils {
 	public static String hockeyNet = "\uD83E\uDD45";
 	//endregion
 
-	public DesignUtils(){}
-
 	//region designing lines for output
 	public static void designLine(int numberOfLines, boolean isNewLine) {
 		StringBuilder underLine = new StringBuilder("=");
