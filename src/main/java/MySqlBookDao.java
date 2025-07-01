@@ -35,6 +35,25 @@ public class MySqlBookDao {
 		return booksList;
 	}
 
+	public Book getBookById(int bookId) {
+		String query = "SELECT * FROM books " +
+							   "WHERE book_id = ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, bookId);
+
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	public List<Book> getCheckedOut() {
 		List<Book> bookList = new ArrayList<>();
 
