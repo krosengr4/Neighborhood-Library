@@ -14,7 +14,7 @@ public class MySqlBookDao {
 		this.dataSource = dataSource;
 	}
 
-	public List<Book> getAllAvailable() {
+	public List<Book> getAvailable() {
 		List<Book> booksList = new ArrayList<>();
 
 		String query = "SELECT * FROM books " +
@@ -33,6 +33,27 @@ public class MySqlBookDao {
 			throw new RuntimeException(e);
 		}
 		return booksList;
+	}
+
+	public List<Book> getCheckedOut() {
+		List<Book> bookList = new ArrayList<>();
+
+		String query = "SELECT * FROM books " +
+							   "WHERE checked_in = 0;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet results = statement.executeQuery();
+
+			while(results.next()) {
+				Book book = mapRow(results);
+				bookList.add(book);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return bookList;
 	}
 
 	private Book mapRow(ResultSet results) throws SQLException {
