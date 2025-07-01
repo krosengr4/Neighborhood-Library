@@ -77,7 +77,16 @@ public class Logic {
 	}
 
 	private static void processSearchBookTitle() {
-		System.out.println("Book by title");
+		String titleToSearch = Utils.getUserInput("Enter the title of the book: ");
+		Book book = bookDao.searchByTitle(titleToSearch);
+
+		if(book == null) {
+			System.out.println("There are no books with that title...");
+		} else {
+			book.print();
+			System.out.println("----------------------------------------");
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processCheckOutBook() {
