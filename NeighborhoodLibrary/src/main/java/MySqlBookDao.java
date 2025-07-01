@@ -7,5 +7,5 @@ public class MySqlBookDao {
 	public MySqlBookDao(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-
 }
+
