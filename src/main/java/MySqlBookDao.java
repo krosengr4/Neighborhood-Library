@@ -115,11 +115,34 @@ public class MySqlBookDao {
 		return null;
 	}
 
+	public void checkoutBook(String userName, int book_id) {
+		String query = "UPDATE books " +
+							   "SET checked_out = 1, check_out_by = ? " +
+							   "WHERE book_id = ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, userName);
+			statement.setInt(2, book_id);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				Book book = mapRow(statement.getResultSet());
+				System.out.println("Success! You have checked out " + book.getTitle());
+			} else {
+				System.err.println("Error! Book could not be checked out!");
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
 		String title = results.getString("title");
-		boolean isCheckedIn = results.getBoolean("checked_in");
+		boolean isCheckedIn = results.getBoolean("checked_out");
 		String author = results.getString("author");
 		int publishedYear = results.getInt("published_year");
 
