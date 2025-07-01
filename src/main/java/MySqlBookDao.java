@@ -39,7 +39,7 @@ public class MySqlBookDao {
 		List<Book> bookList = new ArrayList<>();
 
 		String query = "SELECT * FROM books " +
-							   "WHERE checked_in = 0;";
+							   "WHERE checked_in = 1;";
 
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);

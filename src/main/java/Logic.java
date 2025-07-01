@@ -24,15 +24,17 @@ public class Logic {
 			switch(userAction) {
 				case 1 -> processShowAvailableBooks();
 				case 2 -> processShowCheckedOutBooks();
-				case 3 -> processCheckOutBook();
-				case 4 -> processReturnBook();
+				case 3 -> processSearchBookAuthor();
+				case 4 -> processSearchBookTitle();
+				case 5 -> processCheckOutBook();
+				case 6 -> processReturnBook();
 				case 0 -> ifContinue = false;
 			}
 		}
 	}
 
 	private static void processShowAvailableBooks() {
-		List<Book> bookList = bookDao.getAllAvailable();
+		List<Book> bookList = bookDao.getAvailable();
 
 		if(bookList.isEmpty()) {
 			System.out.println("There are no available books at this time...");
@@ -46,7 +48,16 @@ public class Logic {
 	}
 
 	private static void processShowCheckedOutBooks() {
-		System.out.println("Checked out books");
+		List<Book> bookList = bookDao.getCheckedOut();
+
+		if(bookList.isEmpty()) {
+			System.out.println("There are no checked out books right now...");
+		} else {
+			for(Book book : bookList) {
+				book.print();
+				System.out.println("----------------------------------------");
+			}
+		}
 	}
 
 	private static void processSearchBookAuthor() {
