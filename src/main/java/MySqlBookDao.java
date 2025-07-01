@@ -77,6 +77,25 @@ public class MySqlBookDao {
 		return bookList;
 	}
 
+	public Book searchByTitle(String bookTitle) {
+		String query = "SELECT * FROM books " +
+							   "WHERE title LIKE ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + bookTitle + "%");
+
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
