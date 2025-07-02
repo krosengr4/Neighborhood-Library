@@ -34,4 +34,18 @@ public class UserInterface {
 		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 3);
 	}
 
+	public static int displayUpdateBookScreen() {
+		System.out.println("""
+					-----OPTIONS-----
+				1 - Update IBSN
+				2 - Update Title
+				3 - Update Author
+				4 - Update Year Published
+				5 - Update who the book is checked out by
+				0 - Go back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 5);
+	}
+
 }
