@@ -20,7 +20,23 @@ public class AdminLogic {
 	}
 
 	private static void processAddBook() {
-		System.out.println("Add Book");
+		String ibsn = Utils.getUserInput("Enter the IBSN: ");
+		String title = Utils.getUserInput("Enter the Title: ");
+		String author = Utils.getUserInput("Enter the Author: ");
+		int publishedYear = Utils.getUserInputInt("Enter the year the book was published: ");
+
+		String userAvailability = Utils.getUserInput("Is the book checked out? (Y or N): ").trim();
+		boolean checkedOut = userAvailability.equalsIgnoreCase("y");
+
+		String checkedOutBy = null;
+		if(checkedOut) {
+			checkedOutBy = Utils.getUserInput("Enter who the book was checked out by: ");
+		}
+
+		Book book = bookDao.addBook(new Book(0, ibsn, title, checkedOut, author, publishedYear, checkedOutBy));
+		book.print();
+
+		Utils.pauseApp();
 	}
 
 	private static void processUpdateBook() {
