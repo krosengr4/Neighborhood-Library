@@ -45,6 +45,7 @@ public class Logic {
 				System.out.println("----------------------------------------");
 			}
 		}
+		System.out.println("Number of Books Available: " + bookList.size());
 		Utils.pauseApp();
 	}
 
@@ -59,6 +60,7 @@ public class Logic {
 				System.out.println("----------------------------------------");
 			}
 		}
+		System.out.println("Number of Checked Out Books: " + bookList.size());
 		Utils.pauseApp();
 	}
 
