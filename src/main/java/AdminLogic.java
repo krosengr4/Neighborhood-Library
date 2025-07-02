@@ -40,11 +40,32 @@ public class AdminLogic {
 	}
 
 	private static void processUpdateBook() {
-		System.out.println("Update Book");
+		int bookId = Utils.getUserInputInt("Enter the bookID of the book you want to update: ");
+		int updateChoice = UserInterface.displayUpdateBookScreen();
+		Book updateBook = bookDao.getBookById(bookId);
+
+		switch(updateChoice) {
+			case 1 -> updateBook.setIsbn(Utils.getUserInput("Enter the new IBSN: ").trim());
+			case 2 -> updateBook.setTitle(Utils.getUserInput("Enter the new Title: ").trim());
+			case 3 -> updateBook.setAuthor(Utils.getUserInput("Enter the new Author: ").trim());
+			case 4 -> updateBook.setPublishedYear(Utils.getUserInputInt("Enter the new published year: "));
+			case 5 -> updateBook.setCheckedOutBy(Utils.getUserInput("Enter who the book is now checked out by: "));
+			case 0 -> {
+				return;
+			}
+		}
+
+		bookDao.updateBook(updateBook, bookId);
 	}
 
 	private static void processDeleteBook() {
-		System.out.println("Delete book");
+		int bookId = Utils.getUserInputInt("Enter the BookID of the book to be deleted: ");
+		Book book = bookDao.getBookById(bookId);
+
+		String deleteConfirmation = Utils.getUserInput("Are you sure you want to delete " + book.getTitle() + "? (Y or N): ");
+		if(deleteConfirmation.equalsIgnoreCase("y")) {
+			bookDao.deleteBook(bookId);
+		}
 	}
 
 }
