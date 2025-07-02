@@ -186,6 +186,33 @@ public class MySqlBookDao {
 		return null;
 	}
 
+	public void updateBook(Book book, int bookId) {
+		String query = "UPDATE books " +
+							   "SET ibsn = ?, title = ?, checked_out = ?, author = ?, published_year = ?, check_out_by = ? " +
+							   "WHERE book_id = ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, book.getIsbn());
+			statement.setString(2, book.getTitle());
+			statement.setBoolean(3, book.isCheckedOut());
+			statement.setString(4, book.getAuthor());
+			statement.setInt(5, book.getPublishedYear());
+			statement.setString(6, book.getCheckedOutBy());
+			statement.setInt(7, bookId);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				System.out.println("Success! The book was updated!");
+			} else {
+				System.err.println("ERROR! The book could not be updated!");
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
