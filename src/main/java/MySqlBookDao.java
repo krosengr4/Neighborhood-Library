@@ -1,8 +1,5 @@
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,6 +155,35 @@ public class MySqlBookDao {
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public Book addBook(Book book) {
+		String query = "INSERT INTO books (ibsn, title, checked_out, author, published_year, check_out_by) " +
+							   "VALUES (?, ?, ?, ?, ?, ?);";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, book.getIsbn());
+			statement.setString(2, book.getTitle());
+			statement.setBoolean(3, book.isCheckedOut());
+			statement.setString(4, book.getAuthor());
+			statement.setInt(5, book.getPublishedYear());
+			statement.setString(6, book.getCheckedOutBy());
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				ResultSet keys = statement.getGeneratedKeys();
+
+				if(keys.next()) {
+					int bookId = keys.getInt(1);
+					return getBookById(bookId);
+				}
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
 	}
 
 	private Book mapRow(ResultSet results) throws SQLException {
