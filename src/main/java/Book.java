@@ -7,15 +7,17 @@ public class Book implements MySqlDao {
 	boolean isCheckedOut;
 	String author;
 	int publishedYear;
+	String checkedOutBy;
 
 	//Constructor for Book
-	public Book(int id, String isbn, String title, boolean isCheckedOut, String author, int publishedYear) {
+	public Book(int id, String isbn, String title, boolean isCheckedOut, String author, int publishedYear, String checkedOutBy) {
 		this.id = id;
 		this.isbn = isbn;
 		this.title = title;
 		this.isCheckedOut = isCheckedOut;
 		this.author = author;
 		this.publishedYear = publishedYear;
+		this.checkedOutBy = checkedOutBy;
 	}
 
 	//region Getters and Setters
@@ -65,6 +67,14 @@ public class Book implements MySqlDao {
 
 	public void setPublishedYear(int publishedYear) {
 		this.publishedYear = publishedYear;
+	}
+
+	public String getCheckedOutBy() {
+		return checkedOutBy;
+	}
+
+	public void setCheckedOutBy(String checkedOutBy) {
+		this.checkedOutBy = checkedOutBy;
 	}
 	//endregion
 
