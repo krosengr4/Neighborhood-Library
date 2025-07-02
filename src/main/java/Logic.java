@@ -105,7 +105,17 @@ public class Logic {
 	}
 
 	private static void processReturnBook() {
+		int bookId = Utils.getUserInputInt("Enter the ID of the book to return: ");
+		Book book = bookDao.getBookById(bookId);
 
+		if(!book.isCheckedOut) {
+			System.out.println("This book has not been checked out yet!!!");
+		} else if(!book.getCheckedOutBy().equalsIgnoreCase(userName)) {
+			System.out.println("You cannot return this book! It was checked out by someone else!");
+		} else {
+			bookDao.returnBook(bookId);
+		}
+		Utils.pauseApp();
 	}
 
 }

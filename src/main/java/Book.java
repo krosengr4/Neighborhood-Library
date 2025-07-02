@@ -103,7 +103,7 @@ public class Book implements MySqlDao {
 		if(!this.isCheckedOut) {
 			System.out.println("Available!");
 		} else {
-			System.out.println("This book is currently checked out.");
+			System.out.println("This book is currently checked out by " + this.checkedOutBy);
 		}
 
 	}

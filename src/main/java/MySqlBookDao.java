@@ -167,8 +167,9 @@ public class MySqlBookDao {
 		boolean isCheckedIn = results.getBoolean("checked_out");
 		String author = results.getString("author");
 		int publishedYear = results.getInt("published_year");
+		String checkedOutBy = results.getString("check_out_by");
 
-		return new Book(bookId, ibsn, title, isCheckedIn, author, publishedYear);
+		return new Book(bookId, ibsn, title, isCheckedIn, author, publishedYear, checkedOutBy);
 	}
 }
 
