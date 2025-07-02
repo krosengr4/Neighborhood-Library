@@ -118,4 +118,15 @@ public class Logic {
 		Utils.pauseApp();
 	}
 
+	private static void processAdminScreen() {
+		String userPassword = Utils.getUserInput("Enter the password: ");
+		boolean isPasswordCorrect = Utils.passwordCheck(userPassword);
+
+		if(isPasswordCorrect) {
+			AdminLogic.processAdminOptions();
+		} else {
+			System.err.println("ERROR! Wrong Password!");
+		}
+	}
+
 }
