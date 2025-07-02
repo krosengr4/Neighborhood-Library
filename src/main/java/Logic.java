@@ -6,6 +6,7 @@ public class Logic {
 
 	static BasicDataSource dataSource = new BasicDataSource();
 	static MySqlBookDao bookDao = new MySqlBookDao(dataSource);
+	static String userName;
 
 	public static void setDataSource() {
 		dataSource.setUrl("jdbc:mysql://localhost:3306/neighborhood_library");
@@ -14,7 +15,7 @@ public class Logic {
 	}
 
 	public static void processHomeScreen() {
-		String userName = Utils.getUserInput("Please Enter Your Name: ").trim();
+		userName = Utils.getUserInput("Please Enter Your Name: ").trim();
 
 		boolean ifContinue = true;
 
@@ -90,7 +91,15 @@ public class Logic {
 	}
 
 	private static void processCheckOutBook() {
-		System.out.println("Check out a book");
+		int bookId = Utils.getUserInputInt("Enter the ID of the book to check out: ");
+		Book book = bookDao.getBookById(bookId);
+
+		if(book.isCheckedOut) {
+			System.out.println("We're sorry... that book is unavailable for checkout.");
+		} else {
+			bookDao.checkoutBook(userName, bookId);
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processReturnBook() {

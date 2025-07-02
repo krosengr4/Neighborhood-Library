@@ -18,7 +18,7 @@ public class MySqlBookDao {
 		List<Book> booksList = new ArrayList<>();
 
 		String query = "SELECT * FROM books " +
-							   "WHERE checked_in = 0;";
+							   "WHERE checked_out = 0;";
 
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -58,7 +58,7 @@ public class MySqlBookDao {
 		List<Book> bookList = new ArrayList<>();
 
 		String query = "SELECT * FROM books " +
-							   "WHERE checked_in = 1;";
+							   "WHERE checked_out = 1;";
 
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -115,7 +115,7 @@ public class MySqlBookDao {
 		return null;
 	}
 
-	public void checkoutBook(String userName, int book_id) {
+	public void checkoutBook(String userName, int bookId) {
 		String query = "UPDATE books " +
 							   "SET checked_out = 1, check_out_by = ? " +
 							   "WHERE book_id = ?;";
@@ -123,11 +123,11 @@ public class MySqlBookDao {
 		try(Connection connection = dataSource.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, userName);
-			statement.setInt(2, book_id);
+			statement.setInt(2, bookId);
 
 			int rows = statement.executeUpdate();
 			if(rows > 0) {
-				Book book = mapRow(statement.getResultSet());
+				Book book = getBookById(bookId);
 				System.out.println("Success! You have checked out " + book.getTitle());
 			} else {
 				System.err.println("Error! Book could not be checked out!");
