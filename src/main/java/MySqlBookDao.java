@@ -138,6 +138,28 @@ public class MySqlBookDao {
 		}
 	}
 
+	public void returnBook(int bookId) {
+		String query = "UPDATE books " +
+							   "SET checked_out = false, check_out_by = null " +
+							   "WHERE book_id = ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, bookId);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				Book book = getBookById(bookId);
+				System.out.println("Success! " + book.getTitle() + " has been returned!");
+			} else {
+				System.err.println("ERROR! Could not return the book!");
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
