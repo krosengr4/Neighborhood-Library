@@ -29,6 +29,7 @@ public class Logic {
 				case 4 -> processSearchBookTitle();
 				case 5 -> processCheckOutBook();
 				case 6 -> processReturnBook();
+				case 7 -> processAdminScreen();
 				case 0 -> ifContinue = false;
 			}
 		}

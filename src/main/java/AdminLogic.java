@@ -1,4 +1,8 @@
+import com.mysql.cj.log.Log;
+
 public class AdminLogic {
+
+	static MySqlBookDao bookDao = Logic.bookDao;
 
 	public static void processAdminOptions() {
 		boolean ifAdminContinue = true;
