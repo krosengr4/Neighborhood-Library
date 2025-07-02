@@ -213,6 +213,26 @@ public class MySqlBookDao {
 		}
 	}
 
+	public void deleteBook(int bookId) {
+		String query = "DELETE FROM books " +
+							   "WHERE book_id = ?;";
+
+		try(Connection connection = dataSource.getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, bookId);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				System.out.println("Success! The Book was deleted!");
+			} else {
+				System.err.println("ERROR! Could not delete the book!!!");
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private Book mapRow(ResultSet results) throws SQLException {
 		int bookId = results.getInt("book_id");
 		String ibsn = results.getString("ibsn");
